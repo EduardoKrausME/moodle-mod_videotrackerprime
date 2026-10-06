@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  * Creates or updates checkpoints.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime\external;
 
@@ -27,7 +29,15 @@ use core_external\external_single_structure;
 use core_external\external_value;
 use mod_videotrackerprime\checkpoint_manager;
 
+/**
+ * Class save_checkpoint.
+ */
 class save_checkpoint extends external_api {
+    /**
+     * Method execute_parameters.
+     *
+     * @return external_function_parameters Return value.
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'cmid' => new external_value(PARAM_INT, 'Course module id'),
@@ -53,6 +63,31 @@ class save_checkpoint extends external_api {
         ]);
     }
 
+    /**
+     * Method execute.
+     *
+     * @param int $cmid Parameter cmid.
+     * @param int $id Parameter id.
+     * @param float $timestamp Parameter timestamp.
+     * @param string $title Parameter title.
+     * @param string $body Parameter body.
+     * @param string $type Parameter type.
+     * @param string $options Parameter options.
+     * @param string $resourceurl Parameter resourceurl.
+     * @param string $resourcelabel Parameter resourcelabel.
+     * @param int $maxchars Parameter maxchars.
+     * @param bool $required Parameter required.
+     * @param bool $pausevideo Parameter pausevideo.
+     * @param bool $requireinteraction Parameter requireinteraction.
+     * @param bool $dismissible Parameter dismissible.
+     * @param bool $onceonly Parameter onceonly.
+     * @param bool $replaynewsession Parameter replaynewsession.
+     * @param bool $visibleontimeline Parameter visibleontimeline.
+     * @param int $timestart Parameter timestart.
+     * @param int $timeend Parameter timeend.
+     * @param int $sortorder Parameter sortorder.
+     * @return array Return value.
+     */
     public static function execute(
         int $cmid, int $id, float $timestamp, string $title, string $body, string $type,
         string $options, string $resourceurl, string $resourcelabel, int $maxchars,
@@ -92,6 +127,11 @@ class save_checkpoint extends external_api {
         return ['id' => (int)$cue->id, 'timestamp' => (float)$cue->timestamp];
     }
 
+    /**
+     * Method execute_returns.
+     *
+     * @return external_single_structure Return value.
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'id' => new external_value(PARAM_INT, 'Checkpoint id'),

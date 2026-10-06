@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  * Deletes checkpoints.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime\external;
 
@@ -26,7 +28,15 @@ use core_external\external_function_parameters;
 use core_external\external_single_structure;
 use core_external\external_value;
 
+/**
+ * Class delete_checkpoint.
+ */
 class delete_checkpoint extends external_api {
+    /**
+     * Method execute_parameters.
+     *
+     * @return external_function_parameters Return value.
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'cmid' => new external_value(PARAM_INT, 'Course module id'),
@@ -34,6 +44,13 @@ class delete_checkpoint extends external_api {
         ]);
     }
 
+    /**
+     * Method execute.
+     *
+     * @param int $cmid Parameter cmid.
+     * @param int $checkpointid Parameter checkpointid.
+     * @return array Return value.
+     */
     public static function execute(int $cmid, int $checkpointid): array {
         global $DB;
         $params = self::validate_parameters(self::execute_parameters(), compact('cmid', 'checkpointid'));
@@ -52,6 +69,11 @@ class delete_checkpoint extends external_api {
         return ['deleted' => true];
     }
 
+    /**
+     * Method execute_returns.
+     *
+     * @return external_single_structure Return value.
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'deleted' => new external_value(PARAM_BOOL, 'Deleted'),

@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,10 +18,20 @@
  * Tests checkpoint response validation.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime;
 
+/**
+ * Class checkpoint_manager_test.
+ */
 final class checkpoint_manager_test extends \advanced_testcase {
+    /**
+     * Method test_reflection_requires_non_empty_text.
+     *
+     * @return void Return value.
+     */
     public function test_reflection_requires_non_empty_text(): void {
         $cue = (object)[
             'type' => 'reflection',
@@ -37,6 +47,11 @@ final class checkpoint_manager_test extends \advanced_testcase {
         $this->assertFalse($completed);
     }
 
+    /**
+     * Method test_confidence_accepts_only_one_to_five.
+     *
+     * @return void Return value.
+     */
     public function test_confidence_accepts_only_one_to_five(): void {
         $cue = (object)['type' => 'confidence', 'configjson' => '{}', 'requireinteraction' => 0];
         [, $completed] = checkpoint_manager::validate_response($cue, '5');
@@ -45,6 +60,11 @@ final class checkpoint_manager_test extends \advanced_testcase {
         $this->assertFalse($completed);
     }
 
+    /**
+     * Method test_poll_must_match_configured_option.
+     *
+     * @return void Return value.
+     */
     public function test_poll_must_match_configured_option(): void {
         $cue = (object)[
             'type' => 'poll',

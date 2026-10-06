@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,8 +18,15 @@
  * Restore structure.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_videotrackerprime_activity_structure_step extends restore_activity_structure_step {
+    /**
+     * Method define_structure.
+     *
+     * @return array Return value.
+     */
     protected function define_structure(): array {
         $paths = [
             new restore_path_element('videotrackerprime', '/activity/videotrackerprime'),
@@ -34,6 +41,12 @@ class restore_videotrackerprime_activity_structure_step extends restore_activity
         return $this->prepare_activity_structure($paths);
     }
 
+    /**
+     * Method process_videotrackerprime.
+     *
+     * @param array $data Parameter data.
+     * @return void Return value.
+     */
     protected function process_videotrackerprime(array $data): void {
         global $DB;
         $data = (object)$data;
@@ -44,6 +57,12 @@ class restore_videotrackerprime_activity_structure_step extends restore_activity
         $this->set_mapping('videotrackerprime', $oldid, $data->id, true);
     }
 
+    /**
+     * Method process_videotrackerprime_cue.
+     *
+     * @param array $data Parameter data.
+     * @return void Return value.
+     */
     protected function process_videotrackerprime_cue(array $data): void {
         global $DB;
         $data = (object)$data;
@@ -53,6 +72,12 @@ class restore_videotrackerprime_activity_structure_step extends restore_activity
         $this->set_mapping('videotrackerprime_cue', $oldid, $data->id);
     }
 
+    /**
+     * Method process_videotrackerprime_answer.
+     *
+     * @param array $data Parameter data.
+     * @return void Return value.
+     */
     protected function process_videotrackerprime_answer(array $data): void {
         global $DB;
         $data = (object)$data;
@@ -63,6 +88,11 @@ class restore_videotrackerprime_activity_structure_step extends restore_activity
         }
     }
 
+    /**
+     * Method after_execute.
+     *
+     * @return void Return value.
+     */
     protected function after_execute(): void {
         $this->add_related_files('local_video_bridge', 'video', null);
     }

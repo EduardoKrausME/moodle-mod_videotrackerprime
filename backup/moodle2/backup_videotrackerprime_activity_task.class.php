@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,15 +18,30 @@
  * Backup task.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/mod/videotrackerprime/backup/moodle2/backup_videotrackerprime_stepslib.php');
 
+/**
+ * Class backup_videotrackerprime_activity_task.
+ */
 class backup_videotrackerprime_activity_task extends backup_activity_task {
+    /**
+     * Method define_my_settings.
+     *
+     * @return void Return value.
+     */
     protected function define_my_settings(): void {
     }
 
+    /**
+     * Method define_my_steps.
+     *
+     * @return void Return value.
+     */
     protected function define_my_steps(): void {
         $this->add_step(new backup_videotrackerprime_activity_structure_step(
             'videotrackerprime_structure',
@@ -34,6 +49,12 @@ class backup_videotrackerprime_activity_task extends backup_activity_task {
         ));
     }
 
+    /**
+     * Method encode_content_links.
+     *
+     * @param mixed $content Parameter content.
+     * @return string Return value.
+     */
     public static function encode_content_links($content): string {
         return $content;
     }

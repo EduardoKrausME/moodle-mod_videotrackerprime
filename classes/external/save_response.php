@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  * Stores learner checkpoint responses.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime\external;
 
@@ -27,7 +29,15 @@ use core_external\external_single_structure;
 use core_external\external_value;
 use mod_videotrackerprime\checkpoint_manager;
 
+/**
+ * Class save_response.
+ */
 class save_response extends external_api {
+    /**
+     * Method execute_parameters.
+     *
+     * @return external_function_parameters Return value.
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'checkpointid' => new external_value(PARAM_INT, 'Checkpoint id'),
@@ -37,6 +47,15 @@ class save_response extends external_api {
         ]);
     }
 
+    /**
+     * Method execute.
+     *
+     * @param int $checkpointid Parameter checkpointid.
+     * @param string $sessionid Parameter sessionid.
+     * @param float $videotimestamp Parameter videotimestamp.
+     * @param string $response Parameter response.
+     * @return array Return value.
+     */
     public static function execute(int $checkpointid, string $sessionid, float $videotimestamp, string $response = ''): array {
         global $DB, $USER;
         $params = self::validate_parameters(self::execute_parameters(), compact(
@@ -99,6 +118,11 @@ class save_response extends external_api {
         return ['saved' => true, 'completed' => (bool)$completed];
     }
 
+    /**
+     * Method execute_returns.
+     *
+     * @return external_single_structure Return value.
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'saved' => new external_value(PARAM_BOOL, 'Whether the response was stored'),

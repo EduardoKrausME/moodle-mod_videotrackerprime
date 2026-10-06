@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,12 +18,23 @@
  * Moodle custom completion integration.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime\completion;
 
 use core_completion\activity_custom_completion;
 
+/**
+ * Class custom_completion.
+ */
 class custom_completion extends activity_custom_completion {
+    /**
+     * Method get_state.
+     *
+     * @param string $rule Parameter rule.
+     * @return int Return value.
+     */
     public function get_state(string $rule): int {
         global $DB;
         $this->validate_rule($rule);
@@ -39,10 +50,20 @@ class custom_completion extends activity_custom_completion {
         return $complete ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
     }
 
+    /**
+     * Method get_defined_custom_rules.
+     *
+     * @return array Return value.
+     */
     public static function get_defined_custom_rules(): array {
         return ['completionpercent', 'completionallrequired', 'completioncheckpointcount'];
     }
 
+    /**
+     * Method get_custom_rule_descriptions.
+     *
+     * @return array Return value.
+     */
     public function get_custom_rule_descriptions(): array {
         global $DB;
         $activity = $DB->get_record('videotrackerprime', ['id' => $this->cm->instance], '*', MUST_EXIST);
@@ -63,6 +84,11 @@ class custom_completion extends activity_custom_completion {
         return $descriptions;
     }
 
+    /**
+     * Method get_sort_order.
+     *
+     * @return array Return value.
+     */
     public function get_sort_order(): array {
         return [
             'completionview',

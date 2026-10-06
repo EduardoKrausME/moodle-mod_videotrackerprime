@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  * Activity settings form.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use local_video_bridge\source\manager as source_manager;
 
@@ -25,7 +27,15 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
+/**
+ * Class mod_videotrackerprime_mod_form.
+ */
 class mod_videotrackerprime_mod_form extends moodleform_mod {
+    /**
+     * Method definition.
+     *
+     * @return void Return value.
+     */
     public function definition(): void {
         $mform = $this->_form;
         $sources = new source_manager();
@@ -52,6 +62,13 @@ class mod_videotrackerprime_mod_form extends moodleform_mod {
         $this->add_action_buttons();
     }
 
+    /**
+     * Method validation.
+     *
+     * @param mixed $data Parameter data.
+     * @param mixed $files Parameter files.
+     * @return array Return value.
+     */
     public function validation($data, $files): array {
         $errors = parent::validation($data, $files);
         $manager = new source_manager();
@@ -64,6 +81,12 @@ class mod_videotrackerprime_mod_form extends moodleform_mod {
         return $errors;
     }
 
+    /**
+     * Method data_preprocessing.
+     *
+     * @param mixed $defaultvalues Parameter defaultvalues.
+     * @return void Return value.
+     */
     public function data_preprocessing(&$defaultvalues): void {
         if (!empty($this->current->instance)) {
             (new source_manager())->prepare_form_data($defaultvalues, $this->context);
@@ -75,6 +98,11 @@ class mod_videotrackerprime_mod_form extends moodleform_mod {
         }
     }
 
+    /**
+     * Method add_completion_rules.
+     *
+     * @return array Return value.
+     */
     public function add_completion_rules(): array {
         $mform = $this->_form;
         $percent = $this->get_suffixed_name('completionpercent');
@@ -96,12 +124,23 @@ class mod_videotrackerprime_mod_form extends moodleform_mod {
         return [$percent, $allrequired, $count];
     }
 
+    /**
+     * Method completion_rule_enabled.
+     *
+     * @param mixed $data Parameter data.
+     * @return bool Return value.
+     */
     public function completion_rule_enabled($data): bool {
         return (int)($data[$this->get_suffixed_name('completionpercent')] ?? 0) > 0
             || !empty($data[$this->get_suffixed_name('completionallrequired')])
             || (int)($data[$this->get_suffixed_name('completioncheckpointcount')] ?? 0) > 0;
     }
 
+    /**
+     * Method get_data.
+     *
+     * @return mixed Return value.
+     */
     public function get_data() {
         $data = parent::get_data();
         if (!$data) {

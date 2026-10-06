@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  * Checkpoint domain logic.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime;
 
@@ -25,12 +27,22 @@ use context_module;
 use local_video_bridge\source\manager as source_manager;
 use stdClass;
 
+/**
+ * Class checkpoint_manager.
+ */
 class checkpoint_manager {
     public const TYPES = [
         'message', 'confirmation', 'reflection', 'confidence',
         'poll', 'resource', 'alert', 'checkpoint',
     ];
 
+    /**
+     * Method get_active.
+     *
+     * @param int $activityid Parameter activityid.
+     * @param int $userid Parameter userid.
+     * @return array Return value.
+     */
     public static function get_active(int $activityid, int $userid = 0): array {
         global $DB;
         $now = time();
@@ -66,6 +78,12 @@ class checkpoint_manager {
         return $out;
     }
 
+    /**
+     * Method serialise_for_client.
+     *
+     * @param stdClass $cue Parameter cue.
+     * @return array Return value.
+     */
     public static function serialise_for_client(stdClass $cue): array {
         $config = json_decode((string)$cue->configjson, true);
         return [
@@ -86,6 +104,14 @@ class checkpoint_manager {
         ];
     }
 
+    /**
+     * Method normalise.
+     *
+     * @param array $data Parameter data.
+     * @param stdClass $activity Parameter activity.
+     * @param context_module $context Parameter context.
+     * @return stdClass Return value.
+     */
     public static function normalise(array $data, stdClass $activity, context_module $context): stdClass {
         $cue = new stdClass();
         $cue->id = (int)($data['id'] ?? 0);
@@ -153,6 +179,13 @@ class checkpoint_manager {
         return $cue;
     }
 
+    /**
+     * Method validate_response.
+     *
+     * @param stdClass $cue Parameter cue.
+     * @param string $response Parameter response.
+     * @return array Return value.
+     */
     public static function validate_response(stdClass $cue, string $response): array {
         $config = json_decode((string)$cue->configjson, true);
         $config = is_array($config) ? $config : [];
@@ -192,6 +225,13 @@ class checkpoint_manager {
         return [$clean, $completed];
     }
 
+    /**
+     * Method completion_counts.
+     *
+     * @param int $activityid Parameter activityid.
+     * @param int $userid Parameter userid.
+     * @return array Return value.
+     */
     public static function completion_counts(int $activityid, int $userid): array {
         global $DB;
         $total = (int)$DB->count_records('videotrackerprime_cues', ['videotrackerprimeid' => $activityid]);

@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  * Privacy API provider.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime\privacy;
 
@@ -29,11 +31,20 @@ use core_privacy\local\request\transform;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 
+/**
+ * Class provider.
+ */
 class provider implements
     \core_privacy\local\metadata\provider,
     \core_privacy\local\request\plugin\provider,
     \core_privacy\local\request\core_userlist_provider {
 
+    /**
+     * Method get_metadata.
+     *
+     * @param collection $collection Parameter collection.
+     * @return collection Return value.
+     */
     public static function get_metadata(collection $collection): collection {
         $collection->add_database_table('videotrackerprime_answers', [
             'userid' => 'privacy:metadata:answers:userid',
@@ -47,6 +58,12 @@ class provider implements
         return $collection;
     }
 
+    /**
+     * Method get_contexts_for_userid.
+     *
+     * @param int $userid Parameter userid.
+     * @return contextlist Return value.
+     */
     public static function get_contexts_for_userid(int $userid): contextlist {
         $contextlist = new contextlist();
         $sql = "SELECT ctx.id
@@ -66,6 +83,12 @@ class provider implements
         return $contextlist;
     }
 
+    /**
+     * Method get_users_in_context.
+     *
+     * @param userlist $userlist Parameter userlist.
+     * @return void Return value.
+     */
     public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
         if (!$context instanceof \context_module) {
@@ -83,6 +106,12 @@ class provider implements
         ]);
     }
 
+    /**
+     * Method export_user_data.
+     *
+     * @param approved_contextlist $contextlist Parameter contextlist.
+     * @return void Return value.
+     */
     public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
         $userid = (int)$contextlist->get_user()->id;
@@ -116,6 +145,12 @@ class provider implements
         }
     }
 
+    /**
+     * Method delete_data_for_all_users_in_context.
+     *
+     * @param \context $context Parameter context.
+     * @return void Return value.
+     */
     public static function delete_data_for_all_users_in_context(\context $context): void {
         global $DB;
         if (!$context instanceof \context_module) {
@@ -135,6 +170,12 @@ class provider implements
         $DB->delete_records_select('videotrackerprime_answers', "checkpointid {$insql}", $params);
     }
 
+    /**
+     * Method delete_data_for_user.
+     *
+     * @param approved_contextlist $contextlist Parameter contextlist.
+     * @return void Return value.
+     */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         global $DB;
         $userid = (int)$contextlist->get_user()->id;
@@ -161,6 +202,12 @@ class provider implements
         }
     }
 
+    /**
+     * Method delete_data_for_users.
+     *
+     * @param approved_userlist $userlist Parameter userlist.
+     * @return void Return value.
+     */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         global $DB;
         $context = $userlist->get_context();

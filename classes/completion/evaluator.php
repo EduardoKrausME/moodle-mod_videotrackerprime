@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,13 +18,25 @@
  * Completion evaluator.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_videotrackerprime\completion;
 
 use local_video_bridge\progress\manager as progress_manager;
 use mod_videotrackerprime\checkpoint_manager;
 
+/**
+ * Class evaluator.
+ */
 class evaluator {
+    /**
+     * Method state.
+     *
+     * @param \stdClass $cm Parameter cm.
+     * @param int $userid Parameter userid.
+     * @return array Return value.
+     */
     public static function state(\stdClass $cm, int $userid): array {
         global $DB;
         $activity = $DB->get_record('videotrackerprime', ['id' => $cm->instance], '*', MUST_EXIST);
@@ -52,6 +64,13 @@ class evaluator {
         ] + $counts;
     }
 
+    /**
+     * Method is_complete.
+     *
+     * @param \stdClass $cm Parameter cm.
+     * @param int $userid Parameter userid.
+     * @return bool Return value.
+     */
     public static function is_complete(\stdClass $cm, int $userid): bool {
         return self::state($cm, $userid)['complete'];
     }

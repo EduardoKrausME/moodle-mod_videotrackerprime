@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/.
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,8 +18,15 @@
  * Backup structure.
  *
  * @package mod_videotrackerprime
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_videotrackerprime_activity_structure_step extends backup_activity_structure_step {
+    /**
+     * Method define_structure.
+     *
+     * @return backup_nested_element Return value.
+     */
     protected function define_structure(): backup_nested_element {
         $userinfo = $this->get_setting_value('userinfo');
 
