@@ -1,0 +1,59 @@
+<div class="videotrackerprime-report">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2>{{#str}}dashboard, videotrackerprime{{/str}}</h2>
+            <div class="text-muted">{{name}}</div>
+        </div>
+        <a class="btn btn-outline-secondary" href="{{backurl}}">{{#str}}backtoactivity, videotrackerprime{{/str}}</a>
+    </div>
+
+    <h3 class="h5">{{#str}}students, videotrackerprime{{/str}}</h3>
+    {{#hasusers}}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead><tr>
+                <th>{{#str}}student{{/str}}</th>
+                <th>{{#str}}watched, videotrackerprime{{/str}}</th>
+                <th>{{#str}}checkpointscompleted, videotrackerprime{{/str}}</th>
+            </tr></thead>
+            <tbody>
+            {{#users}}
+                <tr><td>{{fullname}}</td><td>{{percent}}%</td><td>{{completedcheckpoints}}/{{totalcheckpoints}}</td></tr>
+            {{/users}}
+            </tbody>
+        </table>
+    </div>
+    {{/hasusers}}
+    {{^hasusers}}<div class="alert alert-info">{{#str}}nousers, videotrackerprime{{/str}}</div>{{/hasusers}}
+
+    <h3 class="h5 mt-4">{{#str}}checkpointanalytics, videotrackerprime{{/str}}</h3>
+    {{#hascues}}
+        {{#cues}}
+        <article class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between gap-3">
+                    <h4 class="h6 mb-1">{{time}} — {{title}}</h4>
+                    <span class="badge bg-secondary">{{type}}</span>
+                </div>
+                <div>{{#str}}studentspassed, videotrackerprime{{/str}}: <strong>{{passed}}/{{totalusers}}</strong></div>
+                {{#hasconfidence}}<div>{{#str}}averageconfidence, videotrackerprime{{/str}}: <strong>{{confidence}}/5</strong></div>{{/hasconfidence}}
+                {{#hasdistribution}}
+                    <div class="mt-2">
+                        <strong>{{#str}}distribution, videotrackerprime{{/str}}</strong>
+                        <ul>{{#distribution}}<li>{{label}}: {{count}}</li>{{/distribution}}</ul>
+                    </div>
+                {{/hasdistribution}}
+                {{#hasreflections}}
+                    <details class="mt-2">
+                        <summary>{{#str}}reflections, videotrackerprime{{/str}}</summary>
+                        <ul class="mt-2">
+                            {{#reflections}}<li><strong>{{user}}:</strong> {{response}}</li>{{/reflections}}
+                        </ul>
+                    </details>
+                {{/hasreflections}}
+            </div>
+        </article>
+        {{/cues}}
+    {{/hascues}}
+    {{^hascues}}<div class="alert alert-info">{{#str}}nocheckpoints, videotrackerprime{{/str}}</div>{{/hascues}}
+</div>
