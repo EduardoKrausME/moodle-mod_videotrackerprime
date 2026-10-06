@@ -69,6 +69,20 @@ class save_response extends external_api {
         require_login($activity->course, true, $cm);
         require_capability('mod/videotrackerprime:view', $context);
 
+        if (!checkpoint_manager::is_available($cue)) {
+            throw new \invalid_parameter_exception('Checkpoint is not currently available.');
+        }
+
+        $capabilities = (new \local_video_bridge\source\manager())->get_capabilities(
+            (string)$activity->videosource
+        );
+        if (empty($capabilities['tracking'])) {
+            throw new \invalid_parameter_exception(get_string('notrackingsources', 'videotrackerprime'));
+        }
+        if (($cue->pausevideo || $cue->requireinteraction) && empty($capabilities['playbackcontrol'])) {
+            throw new \invalid_parameter_exception(get_string('playbackcontrolrequired', 'videotrackerprime'));
+        }
+
         // A checkpoint cannot be completed merely because a seek landed far beyond it.
         $tolerance = 3.5;
         if (abs((float)$params['videotimestamp'] - (float)$cue->timestamp) > $tolerance) {
