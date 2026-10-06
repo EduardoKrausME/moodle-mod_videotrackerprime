@@ -120,8 +120,8 @@ define([
             set('onceonly', cue.onceonly);
             set('replaynewsession', cue.replaynewsession);
             set('visibleontimeline', cue.visibleontimeline);
-            set('timestart', cue.timestart || 0);
-            set('timeend', cue.timeend || 0);
+            set('timestart', this.toDateTimeLocal(cue.timestart));
+            set('timeend', this.toDateTimeLocal(cue.timeend));
             set('sortorder', cue.sortorder || 0);
             if (cue.type === 'poll') {
                 set('options', (cue.config && cue.config.options || []).join('\n'));
@@ -174,10 +174,29 @@ define([
                 onceonly: checked('onceonly'),
                 replaynewsession: checked('replaynewsession'),
                 visibleontimeline: checked('visibleontimeline'),
-                timestart: Number(value('timestart') || 0),
-                timeend: Number(value('timeend') || 0),
+                timestart: this.fromDateTimeLocal(value('timestart')),
+                timeend: this.fromDateTimeLocal(value('timeend')),
                 sortorder: Number(value('sortorder') || 0)
             };
+        }
+
+        toDateTimeLocal(timestamp) {
+            const value = Number(timestamp || 0);
+            if (!value) {
+                return '';
+            }
+            const date = new Date(value * 1000);
+            const pad = (part) => String(part).padStart(2, '0');
+            return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) +
+                'T' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+        }
+
+        fromDateTimeLocal(value) {
+            if (!value) {
+                return 0;
+            }
+            const timestamp = Date.parse(value);
+            return Number.isFinite(timestamp) ? Math.floor(timestamp / 1000) : 0;
         }
 
         save() {
