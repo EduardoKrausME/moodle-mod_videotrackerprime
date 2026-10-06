@@ -61,6 +61,10 @@ class save_response extends external_api {
         $params = self::validate_parameters(self::execute_parameters(), compact(
             'checkpointid', 'sessionid', 'videotimestamp', 'response'
         ));
+        if ($params['sessionid'] === '' || \core_text::strlen($params['sessionid']) > 64) {
+            throw new \invalid_parameter_exception('Invalid playback session id.');
+        }
+
         $cue = $DB->get_record('videotrackerprime_cues', ['id' => $params['checkpointid']], '*', MUST_EXIST);
         $activity = $DB->get_record('videotrackerprime', ['id' => $cue->videotrackerprimeid], '*', MUST_EXIST);
         $cm = get_coursemodule_from_instance('videotrackerprime', $activity->id, $activity->course, false, MUST_EXIST);
@@ -97,6 +101,7 @@ class save_response extends external_api {
             'sessionid' => (string)$params['sessionid'],
         ];
         $record = $DB->get_record('videotrackerprime_answers', $key);
+        $wascompleted = $record && !empty($record->completed);
         if ($record) {
             $record->videotimestamp = (float)$params['videotimestamp'];
             $record->response = $cleanresponse;
@@ -114,7 +119,7 @@ class save_response extends external_api {
             $record->id = $DB->insert_record('videotrackerprime_answers', $record);
         }
 
-        if ($completed) {
+        if ($completed && !$wascompleted) {
             $event = \mod_videotrackerprime\event\checkpoint_completed::create([
                 'objectid' => $record->id,
                 'context' => $context,
