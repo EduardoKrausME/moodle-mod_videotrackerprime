@@ -10,7 +10,7 @@
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
-        <FIELD NAME="videosource" TYPE="char" LENGTH="64" NOTNULL="true" DEFAULT="" SEQUENCE="false"/>
+        <FIELD NAME="videosource" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="videourl" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="sourceconfig" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="completionpercent" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -63,7 +63,7 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="checkpointid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="sessionid" TYPE="char" LENGTH="64" NOTNULL="true" DEFAULT="" SEQUENCE="false"/>
+        <FIELD NAME="sessionid" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="videotimestamp" TYPE="number" LENGTH="12" DECIMALS="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="response" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
