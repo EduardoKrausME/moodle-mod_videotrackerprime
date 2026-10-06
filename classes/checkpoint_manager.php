@@ -237,7 +237,7 @@ class checkpoint_manager {
                 break;
             case 'reflection':
                 $limit = min(2000, max(50, (int)($config['maxchars'] ?? 500)));
-                $clean = core_text::substr(clean_param($response, PARAM_TEXT), 0, $limit);
+                $clean = \core_text::substr(clean_param($response, PARAM_TEXT), 0, $limit);
                 $completed = trim($clean) !== '';
                 break;
             case 'confidence':
