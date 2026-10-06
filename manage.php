@@ -46,7 +46,7 @@ unset($client['sourcetemplate']);
 $player['sourcehtml'] = $OUTPUT->render_from_template($player['sourcetemplate'], ['player' => $player]);
 
 $cues = [];
-foreach (checkpoint_manager::get_active((int)$activity->id) as $cue) {
+foreach (checkpoint_manager::get_all((int)$activity->id) as $cue) {
     $item = checkpoint_manager::serialise_for_client($cue);
     $item['rawbody'] = (string)$cue->body;
     $item['timestart'] = (int)$cue->timestart;
