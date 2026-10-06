@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/videotrackerprime/db" VERSION="20261006" COMMENT="XMLDB file for Video Tracker Prime"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="videotrackerprime" COMMENT="Video Tracker Prime activity configuration">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="videosource" TYPE="char" LENGTH="64" NOTNULL="true" DEFAULT="" SEQUENCE="false"/>
+        <FIELD NAME="videourl" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="sourceconfig" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="completionpercent" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="completionallrequired" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="completioncheckpointcount" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="videotrackerprime_cues" COMMENT="Pedagogical cues placed on the video timeline">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="videotrackerprimeid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timestamp" TYPE="number" LENGTH="12" DECIMALS="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="body" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="bodyformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="32" NOTNULL="true" DEFAULT="message" SEQUENCE="false"/>
+        <FIELD NAME="configjson" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="required" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="pausevideo" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="requireinteraction" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="dismissible" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="onceonly" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="replaynewsession" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="visibleontimeline" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="timestart" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timeend" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="sortorder" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="activity" TYPE="foreign" FIELDS="videotrackerprimeid" REFTABLE="videotrackerprime" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="activity-time" UNIQUE="false" FIELDS="videotrackerprimeid,timestamp"/>
+        <INDEX NAME="activity-required" UNIQUE="false" FIELDS="videotrackerprimeid,required"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="videotrackerprime_answers" COMMENT="Learner interactions and effective checkpoint passages">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="checkpointid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="sessionid" TYPE="char" LENGTH="64" NOTNULL="true" DEFAULT="" SEQUENCE="false"/>
+        <FIELD NAME="videotimestamp" TYPE="number" LENGTH="12" DECIMALS="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="response" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="checkpoint" TYPE="foreign" FIELDS="checkpointid" REFTABLE="videotrackerprime_cues" REFFIELDS="id"/>
+        <KEY NAME="user" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="checkpoint-user-session" UNIQUE="true" FIELDS="checkpointid,userid,sessionid"/>
+        <INDEX NAME="user-completed" UNIQUE="false" FIELDS="userid,completed"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
