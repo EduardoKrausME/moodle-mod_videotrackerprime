@@ -42,10 +42,16 @@
                 <th>{{#str}}student{{/str}}</th>
                 <th>{{#str}}watched, videotrackerprime{{/str}}</th>
                 <th>{{#str}}checkpointscompleted, videotrackerprime{{/str}}</th>
+                <th>{{#str}}checkpointspending, videotrackerprime{{/str}}</th>
             </tr></thead>
             <tbody>
             {{#users}}
-                <tr><td>{{fullname}}</td><td>{{percent}}%</td><td>{{completedcheckpoints}}/{{totalcheckpoints}}</td></tr>
+                <tr>
+                    <td>{{fullname}}</td>
+                    <td>{{percent}}%</td>
+                    <td>{{completedcheckpoints}}/{{totalcheckpoints}}</td>
+                    <td>{{pendingcheckpoints}}</td>
+                </tr>
             {{/users}}
             </tbody>
         </table>
