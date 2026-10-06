@@ -33,6 +33,7 @@ $string['backtoactivity'] = 'Back to activity';
 $string['checkpointanalytics'] = 'Checkpoint analytics';
 $string['checkpointnotice'] = 'Save the activity first, then use “Manage checkpoints” to place pedagogical events on the video timeline.';
 $string['checkpointscompleted'] = 'Checkpoints completed';
+$string['checkpointspending'] = 'Checkpoints pending';
 $string['completionallrequired'] = 'Complete all required checkpoints';
 $string['completioncheckpointcount'] = 'Complete at least this many checkpoints';
 $string['completiondetail:allrequired'] = 'Complete all required checkpoints';
