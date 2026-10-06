@@ -21,6 +21,7 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_video_bridge\progress\manager as progress_manager;
 use local_video_bridge\source\manager as source_manager;
 
 function videotrackerprime_supports($feature) {
@@ -69,7 +70,9 @@ function videotrackerprime_delete_instance(int $id): bool {
     }
     $cm = get_coursemodule_from_instance('videotrackerprime', $id, $activity->course, false, IGNORE_MISSING);
     if ($cm) {
-        (new source_manager())->delete_files(context_module::instance($cm->id));
+        $context = context_module::instance($cm->id);
+        progress_manager::delete_consumer($context->id, 'mod_videotrackerprime', $id);
+        (new source_manager())->delete_files($context);
     }
     $cueids = $DB->get_fieldset_select('videotrackerprime_cues', 'id', 'videotrackerprimeid = :id', ['id' => $id]);
     if ($cueids) {
