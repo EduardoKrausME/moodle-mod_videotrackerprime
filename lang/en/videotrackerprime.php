@@ -26,8 +26,8 @@ defined('MOODLE_INTERNAL') || die;
 
 $string['addeventcurrent'] = 'Add event at this point';
 $string['advanced'] = 'Advanced availability';
-$string['availablefrom'] = 'Available from (Unix timestamp, 0 = always)';
-$string['availableuntil'] = 'Available until (Unix timestamp, 0 = always)';
+$string['availablefrom'] = 'Available from';
+$string['availableuntil'] = 'Available until';
 $string['averageconfidence'] = 'Average confidence';
 $string['backtoactivity'] = 'Back to activity';
 $string['checkpointanalytics'] = 'Checkpoint analytics';
