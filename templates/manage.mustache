@@ -1,0 +1,131 @@
+<div class="videotrackerprime-editor"
+     data-videotrackerprime-editor
+     data-edit-label="{{#str}}edit{{/str}}"
+     data-duplicate-label="{{#str}}duplicate, videotrackerprime{{/str}}"
+     data-delete-label="{{#str}}delete{{/str}}"
+     data-delete-confirm="{{#str}}deletecheckpointconfirm, videotrackerprime{{/str}}"
+     data-yes-label="{{#str}}yes{{/str}}"
+     data-no-label="{{#str}}no{{/str}}">
+    <script type="application/json" data-region="config">{{{configjson}}}</script>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2>{{#str}}managecheckpoints, videotrackerprime{{/str}}</h2>
+            <div class="text-muted">{{name}}</div>
+        </div>
+        <a class="btn btn-outline-secondary" href="{{backurl}}">{{#str}}backtoactivity, videotrackerprime{{/str}}</a>
+    </div>
+
+    <div class="videotrackerprime-player-shell">
+        <div data-region="player">{{{player.sourcehtml}}}</div>
+        <div class="video-bridge-timeline videotrackerprime-markers" data-region="timeline-markers"></div>
+    </div>
+
+    <div class="my-3">
+        <button class="btn btn-primary" type="button" data-action="add-current">
+            {{#str}}addeventcurrent, videotrackerprime{{/str}}
+        </button>
+    </div>
+
+    <div class="videotrackerprime-editor-layout">
+        <section>
+            <h3 class="h5">{{#str}}events, videotrackerprime{{/str}}</h3>
+            <div data-region="checkpoint-list" class="videotrackerprime-editor-list"></div>
+        </section>
+
+        <form data-region="checkpoint-form" class="videotrackerprime-editor-form">
+            <input type="hidden" name="id" value="0">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">{{#str}}timestamp, videotrackerprime{{/str}}
+                        <input class="form-control" type="number" min="0" step="0.01" name="timestamp" required>
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label">{{#str}}eventtitle, videotrackerprime{{/str}}
+                        <input class="form-control" type="text" name="title" maxlength="255" required>
+                    </label>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">{{#str}}eventtext, videotrackerprime{{/str}}
+                        <textarea class="form-control" rows="4" name="body"></textarea>
+                    </label>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{#str}}eventtype, videotrackerprime{{/str}}
+                        <select class="form-select" name="type">
+                            <option value="message">{{#str}}type:message, videotrackerprime{{/str}}</option>
+                            <option value="confirmation">{{#str}}type:confirmation, videotrackerprime{{/str}}</option>
+                            <option value="reflection">{{#str}}type:reflection, videotrackerprime{{/str}}</option>
+                            <option value="confidence">{{#str}}type:confidence, videotrackerprime{{/str}}</option>
+                            <option value="poll">{{#str}}type:poll, videotrackerprime{{/str}}</option>
+                            <option value="resource">{{#str}}type:resource, videotrackerprime{{/str}}</option>
+                            <option value="alert">{{#str}}type:alert, videotrackerprime{{/str}}</option>
+                            <option value="checkpoint">{{#str}}type:checkpoint, videotrackerprime{{/str}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="col-md-6" data-for-type="reflection" hidden>
+                    <label class="form-label">{{#str}}maxchars, videotrackerprime{{/str}}
+                        <input class="form-control" type="number" name="maxchars" min="50" max="2000" value="500">
+                    </label>
+                </div>
+                <div class="col-12" data-for-type="poll" hidden>
+                    <label class="form-label">{{#str}}polloptions, videotrackerprime{{/str}}
+                        <textarea class="form-control" rows="4" name="options"></textarea>
+                    </label>
+                </div>
+                <div class="col-md-8" data-for-type="resource" hidden>
+                    <label class="form-label">{{#str}}resourceurl, videotrackerprime{{/str}}
+                        <input class="form-control" type="url" name="resourceurl">
+                    </label>
+                </div>
+                <div class="col-md-4" data-for-type="resource" hidden>
+                    <label class="form-label">{{#str}}resourcelabel, videotrackerprime{{/str}}
+                        <input class="form-control" type="text" name="resourcelabel">
+                    </label>
+                </div>
+            </div>
+
+            <div class="videotrackerprime-options mt-3">
+                <label><input type="checkbox" name="required"> {{#str}}required, videotrackerprime{{/str}}</label>
+                <label><input type="checkbox" name="pausevideo"> {{#str}}pausevideo, videotrackerprime{{/str}}</label>
+                <label><input type="checkbox" name="requireinteraction"> {{#str}}requireinteraction, videotrackerprime{{/str}}</label>
+                <label><input type="checkbox" name="dismissible" checked> {{#str}}dismissible, videotrackerprime{{/str}}</label>
+                <label><input type="checkbox" name="onceonly" checked> {{#str}}onceonly, videotrackerprime{{/str}}</label>
+                <label><input type="checkbox" name="replaynewsession"> {{#str}}replaynewsession, videotrackerprime{{/str}}</label>
+                <label><input type="checkbox" name="visibleontimeline" checked> {{#str}}visibleontimeline, videotrackerprime{{/str}}</label>
+            </div>
+
+            <div class="alert alert-warning mt-3" data-region="playback-warning" hidden>
+                {{#str}}playbackcontrolwarning, videotrackerprime{{/str}}
+            </div>
+
+            <details class="mt-3">
+                <summary>{{#str}}advanced, videotrackerprime{{/str}}</summary>
+                <div class="row g-3 mt-1">
+                    <div class="col-md-4">
+                        <label class="form-label">{{#str}}availablefrom, videotrackerprime{{/str}}
+                            <input class="form-control" type="number" min="0" name="timestart" value="0">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">{{#str}}availableuntil, videotrackerprime{{/str}}
+                            <input class="form-control" type="number" min="0" name="timeend" value="0">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">{{#str}}sortorder, videotrackerprime{{/str}}
+                            <input class="form-control" type="number" min="0" name="sortorder" value="0">
+                        </label>
+                    </div>
+                </div>
+            </details>
+
+            <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-primary" type="submit">{{#str}}savechanges{{/str}}</button>
+                <button class="btn btn-secondary" type="button" data-action="cancel">{{#str}}cancel{{/str}}</button>
+            </div>
+        </form>
+    </div>
+</div>
