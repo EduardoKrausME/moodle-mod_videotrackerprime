@@ -21,6 +21,7 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 use local_video_bridge\source\manager as source_manager;
 
 defined('MOODLE_INTERNAL') || die;
