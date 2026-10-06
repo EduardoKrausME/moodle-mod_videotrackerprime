@@ -80,10 +80,12 @@ foreach ($answers as $answer) {
 $userrows = [];
 foreach ($users as $user) {
     $p = $progress[$user->id] ?? null;
+    $completedcheckpoints = isset($byuser[$user->id]) ? count($byuser[$user->id]) : 0;
     $userrows[] = [
         'fullname' => fullname($user),
         'percent' => $p ? (int)$p->percent : 0,
-        'completedcheckpoints' => isset($byuser[$user->id]) ? count($byuser[$user->id]) : 0,
+        'completedcheckpoints' => $completedcheckpoints,
+        'pendingcheckpoints' => max(0, count($cues) - $completedcheckpoints),
         'totalcheckpoints' => count($cues),
     ];
 }
