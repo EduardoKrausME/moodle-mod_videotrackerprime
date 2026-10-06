@@ -78,4 +78,28 @@ final class checkpoint_manager_test extends \advanced_testcase {
         $this->assertSame('', $response);
         $this->assertFalse($completed);
     }
+
+    /**
+     * Checkpoint availability honours both optional boundaries.
+     *
+     * @return void
+     */
+    public function test_checkpoint_availability_window(): void {
+        $this->assertTrue(checkpoint_manager::is_available(
+            (object)['timestart' => 0, 'timeend' => 0],
+            1000
+        ));
+        $this->assertTrue(checkpoint_manager::is_available(
+            (object)['timestart' => 900, 'timeend' => 1100],
+            1000
+        ));
+        $this->assertFalse(checkpoint_manager::is_available(
+            (object)['timestart' => 1001, 'timeend' => 0],
+            1000
+        ));
+        $this->assertFalse(checkpoint_manager::is_available(
+            (object)['timestart' => 0, 'timeend' => 999],
+            1000
+        ));
+    }
 }
