@@ -1,0 +1,76 @@
+<div class="videotrackerprime" data-videotrackerprime>
+    <script type="application/json" data-region="config">{{{configjson}}}</script>
+
+    <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+        <div>
+            <h2>{{name}}</h2>
+            {{#hasintro}}<div class="videotrackerprime-intro">{{{intro}}}</div>{{/hasintro}}
+        </div>
+        <div class="btn-group">
+            {{#canmanage}}<a class="btn btn-outline-secondary" href="{{manageurl}}">{{#str}}managecheckpoints, videotrackerprime{{/str}}</a>{{/canmanage}}
+            {{#canviewreport}}<a class="btn btn-outline-secondary" href="{{reporturl}}">{{#str}}dashboard, videotrackerprime{{/str}}</a>{{/canviewreport}}
+        </div>
+    </div>
+
+    <div class="videotrackerprime-player-shell" data-region="player-shell">
+        <div data-region="player">{{{player.sourcehtml}}}</div>
+        <div class="video-bridge-timeline videotrackerprime-markers" data-region="timeline-markers"
+             aria-label="{{#str}}timeline, videotrackerprime{{/str}}"></div>
+    </div>
+
+    <div class="videotrackerprime-status mt-3">
+        <span>{{#str}}watched, videotrackerprime{{/str}}: <strong data-region="watched-percent">{{state.percent}}%</strong></span>
+        <span>{{#str}}checkpointscompleted, videotrackerprime{{/str}}:
+            <strong data-region="completed-count">{{state.completed}}</strong>/{{state.total}}</span>
+        {{#state.required}}<span>{{#str}}requiredcompleted, videotrackerprime{{/str}}:
+            <strong>{{state.requiredcompleted}}</strong>/{{state.required}}</span>{{/state.required}}
+    </div>
+
+    <section class="videotrackerprime-overlay" data-region="checkpoint-overlay" hidden aria-live="polite">
+        <div class="videotrackerprime-overlay__card">
+            <h3 data-region="cue-title"></h3>
+            <div class="videotrackerprime-overlay__body" data-region="cue-body"></div>
+
+            <div data-input-type="confirmation" hidden>
+                <label class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1">
+                    <span class="form-check-label">{{#str}}confirmunderstood, videotrackerprime{{/str}}</span>
+                </label>
+            </div>
+
+            <div data-input-type="reflection" hidden>
+                <label>{{#str}}yourreflection, videotrackerprime{{/str}}
+                    <textarea class="form-control" rows="4"></textarea>
+                </label>
+            </div>
+
+            <fieldset data-input-type="confidence" hidden>
+                <legend class="fs-6">{{#str}}confidencequestion, videotrackerprime{{/str}}</legend>
+                <div class="videotrackerprime-confidence">
+                    <label><input type="radio" name="videotrackerprime-confidence" value="1"> 1</label>
+                    <label><input type="radio" name="videotrackerprime-confidence" value="2"> 2</label>
+                    <label><input type="radio" name="videotrackerprime-confidence" value="3"> 3</label>
+                    <label><input type="radio" name="videotrackerprime-confidence" value="4"> 4</label>
+                    <label><input type="radio" name="videotrackerprime-confidence" value="5"> 5</label>
+                </div>
+            </fieldset>
+
+            <div data-input-type="poll" class="videotrackerprime-poll" hidden></div>
+
+            <div data-input-type="resource" hidden>
+                <a class="btn btn-outline-primary" href="#" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+
+            <div class="videotrackerprime-overlay__actions mt-3">
+                <button type="button" class="btn btn-primary" data-action="submit"
+                        data-save-label="{{#str}}saveresponse, videotrackerprime{{/str}}"
+                        data-continue-label="{{#str}}continue, videotrackerprime{{/str}}">
+                    {{#str}}continue, videotrackerprime{{/str}}
+                </button>
+                <button type="button" class="btn btn-link" data-action="dismiss">
+                    {{#str}}dismiss, videotrackerprime{{/str}}
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
