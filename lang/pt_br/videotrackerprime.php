@@ -33,6 +33,7 @@ $string['backtoactivity'] = 'Voltar para a atividade';
 $string['checkpointanalytics'] = 'Analytics dos checkpoints';
 $string['checkpointnotice'] = 'Salve a atividade e depois use “Gerenciar checkpoints” para distribuir os eventos pedagógicos na timeline.';
 $string['checkpointscompleted'] = 'Checkpoints concluídos';
+$string['checkpointspending'] = 'Checkpoints pendentes';
 $string['completionallrequired'] = 'Concluir todos os checkpoints obrigatórios';
 $string['completioncheckpointcount'] = 'Concluir pelo menos esta quantidade de checkpoints';
 $string['completiondetail:allrequired'] = 'Concluir todos os checkpoints obrigatórios';
