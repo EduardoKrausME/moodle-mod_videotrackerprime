@@ -177,6 +177,9 @@ class checkpoint_manager {
         if ($cue->title === '') {
             throw new \invalid_parameter_exception('Checkpoint title is required.');
         }
+        if (\core_text::strlen($cue->title) > 255) {
+            throw new \invalid_parameter_exception('Checkpoint title is too long.');
+        }
 
         $caps = (new source_manager())->get_capabilities((string)$activity->videosource);
         if (empty($caps['tracking'])) {
