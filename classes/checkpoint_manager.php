@@ -37,6 +37,41 @@ class checkpoint_manager {
     ];
 
     /**
+     * Returns every checkpoint configured for an activity.
+     *
+     * Unlike get_active(), this method intentionally ignores availability
+     * windows because teachers must still be able to edit future and expired
+     * checkpoints.
+     *
+     * @param int $activityid Activity instance id.
+     * @return array
+     */
+    public static function get_all(int $activityid): array {
+        global $DB;
+
+        return array_values($DB->get_records(
+            'videotrackerprime_cues',
+            ['videotrackerprimeid' => $activityid],
+            'timestamp ASC, sortorder ASC, id ASC'
+        ));
+    }
+
+    /**
+     * Checks whether a checkpoint is currently inside its availability window.
+     *
+     * @param stdClass $cue Checkpoint record.
+     * @param int|null $now Timestamp used for the check, mainly useful in tests.
+     * @return bool
+     */
+    public static function is_available(stdClass $cue, ?int $now = null): bool {
+        $now ??= time();
+        $start = (int)($cue->timestart ?? 0);
+        $end = (int)($cue->timeend ?? 0);
+
+        return ($start === 0 || $start <= $now) && ($end === 0 || $end >= $now);
+    }
+
+    /**
      * Method get_active.
      *
      * @param int $activityid Parameter activityid.
@@ -144,6 +179,9 @@ class checkpoint_manager {
         }
 
         $caps = (new source_manager())->get_capabilities((string)$activity->videosource);
+        if (empty($caps['tracking'])) {
+            throw new \invalid_parameter_exception(get_string('notrackingsources', 'videotrackerprime'));
+        }
         if (($cue->pausevideo || $cue->requireinteraction) && empty($caps['playbackcontrol'])) {
             throw new \invalid_parameter_exception(
                 get_string('playbackcontrolrequired', 'videotrackerprime')
