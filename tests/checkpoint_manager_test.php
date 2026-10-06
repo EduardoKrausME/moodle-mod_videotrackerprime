@@ -31,6 +31,7 @@ final class checkpoint_manager_test extends \advanced_testcase {
     /**
      * Method test_reflection_requires_non_empty_text.
      *
+     * @covers \mod_videotrackerprime\checkpoint_manager::validate_response
      * @return void Return value.
      */
     public function test_reflection_requires_non_empty_text(): void {
@@ -51,6 +52,7 @@ final class checkpoint_manager_test extends \advanced_testcase {
     /**
      * Method test_confidence_accepts_only_one_to_five.
      *
+     * @covers \mod_videotrackerprime\checkpoint_manager::validate_response
      * @return void Return value.
      */
     public function test_confidence_accepts_only_one_to_five(): void {
@@ -64,6 +66,7 @@ final class checkpoint_manager_test extends \advanced_testcase {
     /**
      * Method test_poll_must_match_configured_option.
      *
+     * @covers \mod_videotrackerprime\checkpoint_manager::validate_response
      * @return void Return value.
      */
     public function test_poll_must_match_configured_option(): void {
@@ -83,6 +86,7 @@ final class checkpoint_manager_test extends \advanced_testcase {
     /**
      * Checkpoint availability honours both optional boundaries.
      *
+     * @covers \mod_videotrackerprime\checkpoint_manager::is_available
      * @return void
      */
     public function test_checkpoint_availability_window(): void {

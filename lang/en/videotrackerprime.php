@@ -66,6 +66,7 @@ $string['onceonly'] = 'Appear only once in the current session';
 $string['pausevideo'] = 'Pause video';
 $string['playbackcontrolrequired'] = 'This checkpoint requires a provider with the playbackcontrol capability.';
 $string['playbackcontrolwarning'] = 'The selected provider does not guarantee playback control. Automatic pause and blocking interaction are disabled.';
+$string['pluginadministration'] = 'Video Tracker Prime administration';
 $string['pluginname'] = 'Video Tracker Prime';
 $string['polloptions'] = 'Poll options, one per line';
 $string['privacy:answerspath'] = 'Checkpoint interactions';
