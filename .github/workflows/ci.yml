@@ -54,14 +54,14 @@ jobs:
       with:
         repository: EduardoKrausME/moodle-local_video_bridge
         ref: master
-        path: extra-plugins/video_bridge
+        path: extra/local_video_bridge
 
     - name: Check out AI Bridge dependency
       uses: actions/checkout@v4
       with:
         repository: EduardoKrausME/moodle-local_ai_bridge
         ref: master
-        path: extra-plugins/ai_bridge
+        path: extra/local_ai_bridge
 
     - name: Setup PHP ${{ matrix.config.php }}
       uses: shivammathur/setup-php@v2
@@ -81,7 +81,7 @@ jobs:
         echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
     - name: Install moodle-plugin-ci
-      run: moodle-plugin-ci install --plugin ./plugin --extra-plugins ./extra-plugins --db-host=127.0.0.1
+      run: moodle-plugin-ci install --plugin ./plugin --extra-plugins ./extra --db-host=127.0.0.1
       env:
         DB: ${{ matrix.database }}
         MOODLE_BRANCH: ${{ matrix.config.moodle }}
