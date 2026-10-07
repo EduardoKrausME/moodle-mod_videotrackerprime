@@ -25,6 +25,12 @@
 use local_video_bridge\progress\manager as progress_manager;
 use local_video_bridge\source\manager as source_manager;
 
+/**
+ * Declares the Moodle features supported by the activity.
+ *
+ * @param string $feature Feature constant being queried.
+ * @return mixed Support value for the requested feature.
+ */
 function videotrackerprime_supports($feature) {
     return match ($feature) {
         FEATURE_MOD_ARCHETYPE => MOD_ARCHETYPE_RESOURCE,
@@ -38,6 +44,13 @@ function videotrackerprime_supports($feature) {
     };
 }
 
+/**
+ * Creates a Video Tracker Prime activity instance.
+ *
+ * @param stdClass $data Activity data.
+ * @param mod_videotrackerprime_mod_form|null $mform Activity form instance.
+ * @return int New activity instance id.
+ */
 function videotrackerprime_add_instance(stdClass $data, ?mod_videotrackerprime_mod_form $mform = null): int {
     global $DB;
     $now = time();
@@ -51,6 +64,13 @@ function videotrackerprime_add_instance(stdClass $data, ?mod_videotrackerprime_m
     return $id;
 }
 
+/**
+ * Updates a Video Tracker Prime activity instance.
+ *
+ * @param stdClass $data Activity data.
+ * @param mod_videotrackerprime_mod_form|null $mform Activity form instance.
+ * @return bool True when the activity record is updated.
+ */
 function videotrackerprime_update_instance(stdClass $data, ?mod_videotrackerprime_mod_form $mform = null): bool {
     global $DB;
     $data->id = $data->instance;
@@ -63,6 +83,12 @@ function videotrackerprime_update_instance(stdClass $data, ?mod_videotrackerprim
     return $result;
 }
 
+/**
+ * Deletes a Video Tracker Prime activity instance and related data.
+ *
+ * @param int $id Activity instance id.
+ * @return bool True when the activity is deleted, false when it does not exist.
+ */
 function videotrackerprime_delete_instance(int $id): bool {
     global $DB;
     $activity = $DB->get_record('videotrackerprime', ['id' => $id]);
@@ -85,6 +111,12 @@ function videotrackerprime_delete_instance(int $id): bool {
     return true;
 }
 
+/**
+ * Returns cached course-module information for the activity.
+ *
+ * @param stdClass $cm Course-module record.
+ * @return cached_cm_info|null Cached information or null when the activity does not exist.
+ */
 function videotrackerprime_get_coursemodule_info(stdClass $cm): ?cached_cm_info {
     global $DB;
     $activity = $DB->get_record('videotrackerprime', ['id' => $cm->instance],
@@ -107,6 +139,12 @@ function videotrackerprime_get_coursemodule_info(stdClass $cm): ?cached_cm_info 
     return $info;
 }
 
+/**
+ * Returns descriptions for the active custom completion rules.
+ *
+ * @param cached_cm_info $cm Cached course-module information.
+ * @return array Human-readable completion rule descriptions.
+ */
 function videotrackerprime_get_completion_active_rule_descriptions(cached_cm_info $cm): array {
     $rules = $cm->customdata['customcompletionrules'] ?? [];
     $descriptions = [];
@@ -122,6 +160,15 @@ function videotrackerprime_get_completion_active_rule_descriptions(cached_cm_inf
     return $descriptions;
 }
 
+/**
+ * Determines whether the activity is complete for a user.
+ *
+ * @param stdClass $course Course record.
+ * @param stdClass $cm Course-module record.
+ * @param int $userid User id.
+ * @param bool $type Expected completion state.
+ * @return bool True when the custom completion conditions are satisfied.
+ */
 function videotrackerprime_get_completion_state($course, $cm, int $userid, bool $type): bool {
     return \mod_videotrackerprime\completion\evaluator::is_complete($cm, $userid);
 }
