@@ -22,6 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Backup structure step for the Video Tracker Prime activity.
+ */
 class backup_videotrackerprime_activity_structure_step extends backup_activity_structure_step {
     /**
      * Method define_structure.
