@@ -19,5 +19,6 @@ Feature: Configure a Video Tracker Prime activity
     When I log in as "teacher1"
     And I am on "Course 1" course homepage with editing mode on
     And I add a "Video Tracker Prime" to section "1" using the activity chooser
+    And I expand all fieldsets
     Then I should see "Video source"
     And I should see "Save the activity first, then use “Manage checkpoints” to place pedagogical events on the video timeline."
