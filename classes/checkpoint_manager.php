@@ -32,6 +32,7 @@ use stdClass;
  * Class checkpoint_manager.
  */
 class checkpoint_manager {
+    /** Supported checkpoint types. */
     public const TYPES = [
         'message', 'confirmation', 'reflection', 'confidence',
         'poll', 'resource', 'alert', 'checkpoint',
