@@ -28,7 +28,7 @@ $plugin->component = 'mod_videotrackerprime';
 $plugin->version = 2026100601;
 $plugin->release = '1.0.1';
 $plugin->requires = 2024100700;
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
     'local_video_bridge' => 2026100614,
 ];
