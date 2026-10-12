@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die;
 
 $plugin->component = 'mod_videotrackerprime';
-$plugin->version = 2026100601;
-$plugin->release = '1.0.1';
+$plugin->version = 2026101200;
+$plugin->release = '1.0.2';
 $plugin->requires = 2024100700;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
