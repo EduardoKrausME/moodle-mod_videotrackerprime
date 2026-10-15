@@ -155,4 +155,15 @@ class mod_videotrackerprime_mod_form extends moodleform_mod {
         }
         return $data;
     }
+
+    /**
+     * Returns a completion field name with the suffix used by the current form.
+     *
+     * @param string $fieldname Base completion field name.
+     * @return string Field name with the current completion form suffix.
+     */
+    protected function get_suffixed_name(string $fieldname): string {
+        return $fieldname . $this->get_suffix();
+    }
+
 }
