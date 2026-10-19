@@ -4,6 +4,12 @@ Video Tracker Prime is a Moodle activity for adding small pedagogical events to 
 
 Its purpose is deliberately narrower than a video quiz. Prime does not use Moodle Question Bank, does not implement question attempts, grading engines or complex assessment logic, and is not intended to replace a dedicated `mod_videoquiz`. The activity adds microinteractions synchronized with effective playback.
 
+## Requirements and installation
+
+**Required dependency:** [Moodle Video Bridge (`local_video_bridge`)](https://github.com/EduardoKrausME/moodle-local_video_bridge), version `2026100614` or later. The Video Bridge plugin is not bundled with this activity; install it in `local/video_bridge` before installing or upgrading `mod_videotrackerprime`.
+
+Video Bridge requires Moodle 4.5 or later and currently also depends on `local_ai_bridge`. Install its dependencies and complete the upgrade through **Site administration > Notifications**. An installation limited to plugins available on the Moodle Marketplace must ensure that these required plugins are available there; the activity cannot run without Video Bridge.
+
 ## What belongs to Prime
 
 Teachers can place these event types at precise timestamps:
