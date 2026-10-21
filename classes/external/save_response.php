@@ -62,7 +62,7 @@ class save_response extends external_api {
         $params = self::validate_parameters(self::execute_parameters(), compact(
             'checkpointid', 'sessionid', 'videotimestamp', 'response'
         ));
-        if ($params['sessionid'] === '' || \core_text::strlen($params['sessionid']) > 64) {
+        if ($params['sessionid'] === '' || strlen($params['sessionid']) > 64) {
             throw new \invalid_parameter_exception('Invalid playback session id.');
         }
 

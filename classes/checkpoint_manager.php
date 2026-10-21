@@ -179,7 +179,7 @@ class checkpoint_manager {
         if ($cue->title === '') {
             throw new \invalid_parameter_exception('Checkpoint title is required.');
         }
-        if (\core_text::strlen($cue->title) > 255) {
+        if (strlen($cue->title) > 255) {
             throw new \invalid_parameter_exception('Checkpoint title is too long.');
         }
 
@@ -242,7 +242,7 @@ class checkpoint_manager {
                 break;
             case 'reflection':
                 $limit = min(2000, max(50, (int)($config['maxchars'] ?? 500)));
-                $clean = \core_text::substr(clean_param($response, PARAM_TEXT), 0, $limit);
+                $clean = substr(clean_param($response, PARAM_TEXT), 0, $limit);
                 $completed = trim($clean) !== '';
                 break;
             case 'confidence':
