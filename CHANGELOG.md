@@ -2,6 +2,14 @@
 
 This changelog documents only the two most recent published GitHub releases. Each entry describes changes between its release tag and the immediately preceding published release; changes made later on `master` are excluded.
 
+## 1.0.5 - 2026-11-01
+
+- Replaced legacy `core_text` usage in checkpoint and response handling.
+- Rebuilt editor, player and runtime AMD assets.
+- Clarified the required Video Bridge dependency and removed installation walkthroughs from the README.
+
+**Full comparison:** [1.0.4...1.0.5](https://github.com/EduardoKrausME/moodle-mod_videotrackerprime/compare/1.0.4...1.0.5)
+
 ## 1.0.4 - 2026-10-15
 
 ### Changed
